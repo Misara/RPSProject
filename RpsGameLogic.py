@@ -39,8 +39,8 @@ def prompt_move(player):
     # process strings for consistency
     while move_valid == 0:
         move = input(player['name']+' make your move: ')
-        move.strip()
-        move.lower()
+        move = move.strip()
+        move = move.lower()
         
         # check for invlaid string
         if move == 'rock' or move == 'paper' or move == 'scissors':
@@ -115,7 +115,9 @@ def win_game(p1, p2):
 def assign_pts(p1, p2):
     """ assigns points based on win and past performance """
     if p1['round']['wins_round']:
+        # assign consicutivity points
         p1['total_pts'] += p1['move_used']
+        # assign move points
         if p1['round']['move'] == 'rock':
             p1['total_pts'] += PTS_ROCK
         elif p1['round']['move'] == 'paper':
@@ -125,7 +127,9 @@ def assign_pts(p1, p2):
         print(p1['name']+' wins the round')
 
     elif p2['round']['wins_round']:
+        # assign consecutivity points
         p2['total_pts'] += p2['move_used']
+        # assign move points
         if p2['round']['move'] == 'rock':
             p2['total_pts'] += PTS_ROCK
         elif p2['round']['move'] == 'paper':
@@ -173,13 +177,13 @@ while True:
         print(p1['round']['move'])
         # check win condition
         win_round(p1, p2)
-        print(p1['round']['wins_round'])
-        print(p2['round']['wins_round'])
         # update player info
         p1 = update_player(p1)
         p2 = update_player(p2)
         # assign points
         assign_pts(p1, p2)
+        print(p1['name']+' has '+p1['total_pts']+' points')
+        print(p2['name']+' has '+p2['total_pts']+' points')
  
     report_win(p1, p2)
     
